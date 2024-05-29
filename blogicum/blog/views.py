@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import Http404
 
 
 posts = [
@@ -44,16 +45,22 @@ posts = [
     },
 ]
 
+posts_by_id = {post['id']: post for post in posts}
+
 
 def index(request):
     template_name = 'blog/index.html'
-    return render(request, template_name)
+    context = {'list': posts}
+    return render(request, template_name, context)
 
 
 def post_detail(request, id):
     template_name = 'blog/detail.html'
-    context = {'post': posts[id]}
-    return render(request, template_name, context)
+    if id in range(3):
+        context = {'item': posts_by_id[id]}
+        return render(request, template_name, context)
+    else:
+        raise Http404
 
 
 def category_posts(request, category_slug):
