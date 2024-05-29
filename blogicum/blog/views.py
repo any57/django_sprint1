@@ -50,14 +50,14 @@ posts_by_id = {post['id']: post for post in posts}
 
 def index(request):
     template_name = 'blog/index.html'
-    context = {'list': posts}
+    context = {'post': posts}
     return render(request, template_name, context)
 
 
 def post_detail(request, id):
     template_name = 'blog/detail.html'
     if id in range(3):
-        context = {'item': posts_by_id[id]}
+        context = {'post': posts_by_id[id]}
         return render(request, template_name, context)
     else:
         raise Http404
