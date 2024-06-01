@@ -56,7 +56,7 @@ def index(request):
 
 def post_detail(request, id):
     template_name = 'blog/detail.html'
-    if id in range(3):
+    if id in range(len(posts)):
         context = {'post': posts_by_id[id]}
         return render(request, template_name, context)
     else:
